@@ -3,6 +3,7 @@ import styled from "styled-components";
 import getCabins from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
+import toast from "react-hot-toast";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -30,7 +31,7 @@ const TableHeader = styled.header`
 function CabinTable() {
   const { data: cabins, isLoading, isError, error } = useQuery({ queryKey: ["cabins"], queryFn: getCabins });
   if (isError) {
-    alert(error.message);
+    toast.error(error.message);
     return null;
   }
   if (isLoading) return <Spinner />;
