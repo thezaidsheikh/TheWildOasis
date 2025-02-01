@@ -12,7 +12,15 @@ import { createCabin } from "../../services/apiCabins";
 
 function CreateCabinForm() {
   const queryClient = useQueryClient();
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    getValues,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm({ defaultValues: { image: null } });
   const { mutate: createCabinHandler, isLoading: isCreating } = useMutation({
     mutationFn: createCabin,
     onSuccess: () => {
@@ -24,36 +32,59 @@ function CreateCabinForm() {
       toast.error(error.message);
     },
   });
+  const imageValue = watch("image");
+  console.log("Image field value:", imageValue);
 
   const submitHandler = (data) => {
     console.log(data);
     createCabinHandler(data);
   };
 
+  const errorHandler = (error) => {
+    console.log(error);
+  };
+
   return (
-    <Form type="modal" onSubmit={handleSubmit(submitHandler)}>
-      <FormRow label="Cabin name">
-        <Input type="text" id="name" {...register("name")} />
+    <Form type="modal" onSubmit={handleSubmit(submitHandler, errorHandler)}>
+      <FormRow label="Cabin name" error={errors?.name?.message}>
+        <Input type="text" id="name" {...register("name", { required: "This field is required" })} />
       </FormRow>
 
-      <FormRow label="Capacity">
-        <Input type="number" id="maxCapacity" {...register("capacity")} />
+      <FormRow label="Capacity" error={errors?.capacity?.message}>
+        <Input type="number" id="capacity" {...register("capacity", { required: "This field is required", min: { value: 1, message: "Capacity should be at least 1" } })} />
       </FormRow>
 
-      <FormRow label="Regular Price">
-        <Input type="number" id="regularPrice" {...register("price")} />
+      <FormRow label="Regular Price" error={errors?.price?.message}>
+        <Input type="number" id="price" {...register("price", { required: "This field is required" })} />
       </FormRow>
 
-      <FormRow label="Discount">
-        <Input type="number" id="discount" defaultValue={0} {...register("discount")} />
+      <FormRow label="Discount" error={errors?.discount?.message}>
+        <Input
+          type="number"
+          id="discount"
+          defaultValue={0}
+          {...register("discount", { required: "This field is required", validate: (value) => value <= getValues().price || "Discount should be less than regular price" })}
+        />
       </FormRow>
 
-      <FormRow label="Description for website">
-        <Textarea type="number" id="description" defaultValue="" {...register("description")} />
+      <FormRow label="Description for website" error={errors?.description?.message}>
+        <Textarea type="text" id="description" defaultValue="" {...register("description", { required: "This field is required" })} />
       </FormRow>
 
-      <FormRow label="Cabin image">
-        <FileInput id="image" accept="image/*" {...register("image")} />
+      <FormRow label="Cabin image" error={errors?.image?.message}>
+        <FileInput
+          id="image"
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const file = e.target.files[0];
+            if (file) {
+              setValue("image", file, { shouldValidate: true });
+            } else {
+              setValue("image", null, { shouldValidate: true }); // Clear the field if no file is selected
+            }
+          }}
+        />
       </FormRow>
 
       <FormRow>
