@@ -39,7 +39,8 @@ export const createCabin = async (payload) => {
 };
 
 export const editCabin = async (payload) => {
-  if (payload.image && !payload.image.startsWith(supabaseUrl)) {
+  console.log("editCabin", payload);
+  if ((payload.image && payload.image.name) || !payload.image.startsWith(supabaseUrl)) {
     const imageName = `${Math.random()}-${payload.image.name}`.replaceAll("/", "");
     const imagePath = `https://hzlgbsbiuqlzvdphxvfo.supabase.co/storage/v1/object/public/cabin-images/${imageName}`;
     const { error: storageError } = await supabase.storage.from("cabin-images").upload(imageName, payload.image);

@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
@@ -11,6 +12,7 @@ import { Textarea } from "../../ui/Textarea";
 import { createCabin, editCabin } from "../../services/apiCabins";
 
 function CreateCabinForm({ cabinData = {} }) {
+  console.log(`CreateCabinForm - ${new Date().toTimeString()}`, cabinData);
   const { id: cabinId } = cabinData || {};
   const queryClient = useQueryClient();
   const {
@@ -30,7 +32,19 @@ function CreateCabinForm({ cabinData = {} }) {
       description: cabinData?.description || "",
       image: cabinData?.image || null,
     },
+    keepValues: false,
   });
+
+  // useEffect(() => {
+  //   reset({
+  //     name: cabinData?.name || "",
+  //     capacity: cabinData?.capacity || null,
+  //     price: cabinData?.price || null,
+  //     discount: cabinData?.discount || 0,
+  //     description: cabinData?.description || "",
+  //     image: cabinData?.image || null,
+  //   });
+  // }, [cabinData, reset]);
 
   const { mutate: createCabinHandler, isLoading: isCreating } = useMutation({
     mutationFn: createCabin,
@@ -112,7 +126,6 @@ function CreateCabinForm({ cabinData = {} }) {
       </FormRow>
 
       <FormRow>
-        {/* type is an HTML attribute! */}
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
