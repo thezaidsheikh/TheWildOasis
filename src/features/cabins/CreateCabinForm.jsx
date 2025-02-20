@@ -35,17 +35,6 @@ function CreateCabinForm({ cabinData = {} }) {
     keepValues: false,
   });
 
-  // useEffect(() => {
-  //   reset({
-  //     name: cabinData?.name || "",
-  //     capacity: cabinData?.capacity || null,
-  //     price: cabinData?.price || null,
-  //     discount: cabinData?.discount || 0,
-  //     description: cabinData?.description || "",
-  //     image: cabinData?.image || null,
-  //   });
-  // }, [cabinData, reset]);
-
   const { mutate: createCabinHandler, isLoading: isCreating } = useMutation({
     mutationFn: createCabin,
     onSuccess: () => {
@@ -85,15 +74,30 @@ function CreateCabinForm({ cabinData = {} }) {
   return (
     <Form type="modal" onSubmit={handleSubmit(submitHandler, errorHandler)}>
       <FormRow label="Cabin name" error={errors?.name?.message}>
-        <Input type="text" id="name" {...register("name", { required: "This field is required" })} />
+        <Input
+          type="text"
+          id="name"
+          {...register("name", { required: "This field is required" })}
+        />
       </FormRow>
 
       <FormRow label="Capacity" error={errors?.capacity?.message}>
-        <Input type="number" id="capacity" {...register("capacity", { required: "This field is required", min: { value: 1, message: "Capacity should be at least 1" } })} />
+        <Input
+          type="number"
+          id="capacity"
+          {...register("capacity", {
+            required: "This field is required",
+            min: { value: 1, message: "Capacity should be at least 1" },
+          })}
+        />
       </FormRow>
 
       <FormRow label="Regular Price" error={errors?.price?.message}>
-        <Input type="number" id="price" {...register("price", { required: "This field is required" })} />
+        <Input
+          type="number"
+          id="price"
+          {...register("price", { required: "This field is required" })}
+        />
       </FormRow>
 
       <FormRow label="Discount" error={errors?.discount?.message}>
@@ -101,12 +105,25 @@ function CreateCabinForm({ cabinData = {} }) {
           type="number"
           id="discount"
           defaultValue={0}
-          {...register("discount", { required: "This field is required", validate: (value) => value <= getValues().price || "Discount should be less than regular price" })}
+          {...register("discount", {
+            required: "This field is required",
+            validate: (value) =>
+              value <= getValues().price ||
+              "Discount should be less than regular price",
+          })}
         />
       </FormRow>
 
-      <FormRow label="Description for website" error={errors?.description?.message}>
-        <Textarea type="text" id="description" defaultValue="" {...register("description", { required: "This field is required" })} />
+      <FormRow
+        label="Description for website"
+        error={errors?.description?.message}
+      >
+        <Textarea
+          type="text"
+          id="description"
+          defaultValue=""
+          {...register("description", { required: "This field is required" })}
+        />
       </FormRow>
 
       <FormRow label="Cabin image" error={errors?.image?.message}>
@@ -129,7 +146,9 @@ function CreateCabinForm({ cabinData = {} }) {
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button disabled={isCreating || isEditing}>{cabinId ? "Edit cabin" : "Create new cabin"}</Button>
+        <Button disabled={isCreating || isEditing}>
+          {cabinId ? "Edit cabin" : "Create new cabin"}
+        </Button>
       </FormRow>
     </Form>
   );
