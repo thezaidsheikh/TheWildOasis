@@ -1,6 +1,4 @@
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 
 import FormRow from "../../ui/FormRow";
@@ -9,12 +7,12 @@ import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import { Textarea } from "../../ui/Textarea";
-import { createCabin, editCabin } from "../../services/apiCabins";
+import { useCreateCabin, useEditCabin } from "./cabin.hook";
+import { useMemo } from "react";
 
 function CreateCabinForm({ cabinData = {} }) {
   console.log(`CreateCabinForm - ${new Date().toTimeString()}`, cabinData);
   const { id: cabinId } = cabinData || {};
-  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -35,36 +33,30 @@ function CreateCabinForm({ cabinData = {} }) {
     keepValues: false,
   });
 
-  const { mutate: createCabinHandler, isLoading: isCreating } = useMutation({
-    mutationFn: createCabin,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      toast.success("Cabin created successfully");
-      reset();
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+  const { createCabinHandler, isCreating } = useCreateCabin();
+  const { editCabinHandler, isEditing } = useEditCabin();
 
-  const { mutate: editCabinHandler, isLoading: isEditing } = useMutation({
-    mutationFn: editCabin,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      toast.success("Cabin updated successfully");
-      reset();
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
+  // useEffect(() => {
+  //   console.log("sadsad");
+  //   reset({
+  //     name: cabinData?.name || "",
+  //     capacity: cabinData?.capacity || null,
+  //     price: cabinData?.price || null,
+  //     discount: cabinData?.discount || 0,
+  //     description: cabinData?.description || "",
+  //     image: cabinData?.image || null,
+  //   });
+  // }, [cabinData]);
 
   const imageValue = watch("image");
-  console.log("Image field value:", imageValue);
 
   const submitHandler = (data) => {
-    if (cabinId) return editCabinHandler({ ...data, id: cabinId });
-    return createCabinHandler(data);
+    if (cabinId)
+      return editCabinHandler(
+        { ...data, id: cabinId },
+        { onSuccess: (data) => reset(data) }
+      );
+    return createCabinHandler(data, { onSuccess: () => reset() });
   };
 
   const errorHandler = (error) => {
