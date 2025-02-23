@@ -109,15 +109,4 @@ function CreateCabinForm({ cabinData = {}, onCloseModal }) {
   )
 }
 
-CreateCabinForm.propTypes = {
-  cabinData: {
-    id: String,
-    name: String,
-    capacity: Number,
-    price: Number,
-    discount: Number,
-    image: String,
-  },
-}
-
 export default CreateCabinForm

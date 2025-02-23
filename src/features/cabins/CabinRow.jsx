@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import { formatCurrency } from '../../utils/helpers'
-import { useState } from 'react'
-import CreateCabinForm from './CreateCabinForm'
 import { useCreateCabin, useDeleteCabin } from './cabin.hook'
 import { HiPencil, HiSquare2Stack, HiTrash } from 'react-icons/hi2'
+import CreateCabinForm from './CreateCabinForm'
+import Modal from '../../ui/Modal'
 
 // v1
 const TableRow = styled.div`
@@ -50,7 +50,6 @@ function CabinRow({ cabin }) {
   const { id: cabinId, name, capacity, price, discount, image } = cabin
   const { deleteCabinHandler, isDeleting } = useDeleteCabin()
   const { createCabinHandler, isCreating } = useCreateCabin()
-  const [showForm, setShowForm] = useState(false)
 
   const handleDuplicate = () => {
     createCabinHandler({ ...cabin, name: `Copy of ${name}`, id: undefined })
@@ -68,15 +67,21 @@ function CabinRow({ cabin }) {
           <button onClick={handleDuplicate} disabled={isCreating}>
             <HiSquare2Stack />
           </button>
-          <button onClick={() => setShowForm((show) => !show)}>
-            <HiPencil />
-          </button>
+          <Modal>
+            <Modal.Open opens="cabin-form">
+              <button>
+                <HiPencil />
+              </button>
+            </Modal.Open>
+            <Modal.Window name="cabin-form">
+              <CreateCabinForm cabinData={cabin} />
+            </Modal.Window>
+          </Modal>
           <button onClick={() => deleteCabinHandler(cabinId)} disabled={isDeleting}>
             <HiTrash />
           </button>
         </div>
       </TableRow>
-      {showForm && <CreateCabinForm cabinData={cabin} />}
     </>
   )
 }
