@@ -1,6 +1,6 @@
-import UpdateSettingsForm from "../features/settings/UpdateSettingsForm";
-import Heading from "../ui/Heading";
-import Row from "../ui/Row";
+import UpdateSettingsForm from '../features/settings/UpdateSettingsForm'
+import Heading from '../ui/Heading'
+import Row from '../ui/Row'
 
 function Settings() {
   return (
@@ -10,7 +10,7 @@ function Settings() {
         <UpdateSettingsForm />
       </Row>
     </>
-  );
+  )
 }
 
-export default Settings;
+export default Settings

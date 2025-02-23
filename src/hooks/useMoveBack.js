@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router";
+import { useNavigate } from 'react-router'
 
 export function useMoveBack() {
-  const navigate = useNavigate();
-  return () => navigate(-1);
+  const navigate = useNavigate()
+  return () => navigate(-1)
 }

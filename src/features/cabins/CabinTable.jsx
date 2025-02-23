@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import Spinner from "../../ui/Spinner";
-import CabinRow from "./CabinRow";
-import { useCabin } from "./cabin.hook";
+import styled from 'styled-components'
+import Spinner from '../../ui/Spinner'
+import CabinRow from './CabinRow'
+import { useCabin } from './cabin.hook'
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -9,7 +9,7 @@ const Table = styled.div`
   background-color: var(--color-grey-0);
   border-radius: var(--border-radius-sm);
   overflow: hidden;
-`;
+`
 
 const TableHeader = styled.header`
   display: grid;
@@ -24,11 +24,11 @@ const TableHeader = styled.header`
   font-weight: 600;
   color: var(--color-grey-600);
   padding: 1.6rem 2.4rem;
-`;
+`
 
 function CabinTable() {
-  const { cabins, isLoading } = useCabin();
-  if (isLoading) return <Spinner />;
+  const { cabins, isLoading } = useCabin()
+  if (isLoading) return <Spinner />
   return (
     <Table role="table">
       <TableHeader role="row">
@@ -43,6 +43,6 @@ function CabinTable() {
         <CabinRow key={cabin.id} cabin={cabin} />
       ))}
     </Table>
-  );
+  )
 }
-export default CabinTable;
+export default CabinTable
