@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+import { createContext } from 'react'
 import styled from 'styled-components'
 
 const StyledTable = styled.div`
@@ -40,16 +42,16 @@ const StyledRow = styled(CommonRow)`
   }
 `
 
-const Footer = styled.footer`
-  background-color: var(--color-grey-50);
-  display: flex;
-  justify-content: center;
-  padding: 1.2rem;
+// const Footer = styled.footer`
+//   background-color: var(--color-grey-50);
+//   display: flex;
+//   justify-content: center;
+//   padding: 1.2rem;
 
-  &:not(:has(*)) {
-    display: none;
-  }
-`
+//   &:not(:has(*)) {
+//     display: none;
+//   }
+// `
 
 const Empty = styled.p`
   font-size: 1.6rem;
@@ -57,3 +59,41 @@ const Empty = styled.p`
   text-align: center;
   margin: 2.4rem;
 `
+const TableContent = createContext()
+
+function Table({ children, coloumns }) {
+  return (
+    <TableContent.Provider value={coloumns}>
+      <StyledTable role="table">{children}</StyledTable>
+    </TableContent.Provider>
+  )
+}
+
+function Header({ children }) {
+  const coloumns = useContext(TableContent)
+  return (
+    <StyledHeader role="row" columns={coloumns}>
+      {children}
+    </StyledHeader>
+  )
+}
+
+function Row({ children }) {
+  const coloumns = useContext(TableContent)
+  return (
+    <StyledRow role="row" columns={coloumns}>
+      {children}
+    </StyledRow>
+  )
+}
+
+function Body({ data, render }) {
+  if (!data.length) return <Empty>No {data} found</Empty>
+  return <StyledBody>{data.map(render)}</StyledBody>
+}
+
+Table.Header = Header
+Table.Body = Body
+Table.Row = Row
+
+export default Table
