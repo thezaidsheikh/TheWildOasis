@@ -9,7 +9,6 @@ function UpdateSettingsForm() {
 
   function handleUpdate(e) {
     e.preventDefault()
-    console.log('New input value', e.target.id, e.target.value)
     if (!e.target.value) return
     updateSettingHandler({ [e.target.id]: e.target.value })
   }
