@@ -9,7 +9,6 @@ import { Textarea } from '../../ui/Textarea'
 import { useCreateCabin, useEditCabin } from './cabin.hook'
 
 function CreateCabinForm({ cabinData = {}, onCloseModal }) {
-  console.log(`CreateCabinForm - ${new Date().toTimeString()}`, cabinData)
   const { id: cabinId } = cabinData || {}
   const {
     register,
@@ -37,9 +36,11 @@ function CreateCabinForm({ cabinData = {}, onCloseModal }) {
     if (cabinId) {
       await editCabinHandler({ ...data, id: cabinId }, { onSuccess: (data) => reset(data) })
       onCloseModal()
+      return
     }
     await createCabinHandler(data, { onSuccess: () => reset() })
     onCloseModal()
+    return
   }
 
   const errorHandler = (error) => {
