@@ -21,7 +21,6 @@ function CabinTable() {
   const sortByValue = searchParams.get('sortBy') || 'startDate-asc'
   const [field, direction] = sortByValue.split('-')
   const modifier = direction === 'asc' ? 1 : -1
-  console.log(field, direction, modifier)
   filteredCabins = filteredCabins.sort((a, b) => {
     if (typeof a[field] === 'string') return a[field].localeCompare(b[field]) * modifier
     else return (a[field] - b[field]) * modifier
