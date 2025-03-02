@@ -8,7 +8,7 @@ const BookingTable = () => {
   console.log(bookings)
   return (
     <Menus>
-      <Table coloumns="0.6fr 1.8fr 2.2fr 1fr 1fr 0.1fr">
+      <Table coloumns="0.8fr 1.8fr 2.2fr 1fr 1fr 0.1fr">
         <Table.Header role="row">
           <div>Cabin</div>
           <div>Guest</div>
