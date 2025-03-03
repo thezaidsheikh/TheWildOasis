@@ -54,3 +54,14 @@ const PaginationButton = styled.button`
     color: var(--color-brand-50);
   }
 `
+const Pagination = () => {
+  return (
+    <StyledPagination>
+      <P>
+        Showing <span>1</span> to <span>10</span> of <span>100</span>
+      </P>
+    </StyledPagination>
+  )
+}
+
+export default Pagination

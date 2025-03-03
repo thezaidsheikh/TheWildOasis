@@ -15,10 +15,10 @@ export const useBookings = () => {
   const [field, direction] = sortByValue?.split('-') || []
   const sortBy = { field, direction, method: 'order' }
 
-  const { data: bookings, isLoading, isError, error } = useQuery({ queryKey: ['bookings', filter, sortBy], queryFn: () => getBookings({ filter, sortBy }) })
+  const { data: bookings, isLoading, isError, error, count } = useQuery({ queryKey: ['bookings', filter, sortBy], queryFn: () => getBookings({ filter, sortBy }) })
   if (isError) {
     toast.error(error.message)
     return null
   }
-  return { bookings, isLoading, isError }
+  return { bookings, isLoading, isError, count }
 }
