@@ -77,7 +77,6 @@ function BookingRow({
     'checked-in': 'green',
     'checked-out': 'silver',
   }
-  console.log(bookingId)
   return (
     <Table.Row role="row">
       <Cabin>{cabinName}</Cabin>

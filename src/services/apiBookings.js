@@ -1,3 +1,4 @@
+import { PAGE_SIZE } from '../utils/constants'
 import { getToday } from '../utils/helpers'
 import supabase from './supabase'
 
@@ -11,6 +12,7 @@ export const getBookings = async ({ filter, sortBy }) => {
   if (sortBy !== null) query = query[sortBy.method || 'order'](sortBy.field, { ascending: sortBy.direction === 'asc' })
 
   const { data, error, count } = await query
+
   if (error) {
     console.error('Fetching Bookings Error', error.message)
     throw new Error('Bookings could not be loaded')

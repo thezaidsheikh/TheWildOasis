@@ -6,7 +6,7 @@ import BookingRow from './BookingRow'
 
 const BookingTable = () => {
   const { bookings, count } = useBookings()
-  console.log(count)
+
   return (
     <Menus>
       <Table coloumns="0.8fr 1.8fr 2.2fr 1fr 1fr 0.1fr">
@@ -20,7 +20,7 @@ const BookingTable = () => {
         </Table.Header>
         <Table.Body data={bookings || []} render={(booking) => <BookingRow key={booking.id} booking={booking} />} />
         <Table.Footer>
-          <Pagination />
+          <Pagination count={count} />
         </Table.Footer>
       </Table>
     </Menus>
