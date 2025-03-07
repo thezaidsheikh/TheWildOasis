@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { getBookings } from '../../services/apiBookings'
+import { getBooking, getBookings } from '../../services/apiBookings'
 import toast from 'react-hot-toast'
-import { useSearchParams } from 'react-router'
+import { useParams, useSearchParams } from 'react-router'
 import { PAGE_SIZE } from '../../utils/constants'
 
 export const useBookings = () => {
@@ -44,4 +44,14 @@ export const useBookings = () => {
     return null
   }
   return { bookings, isLoading, isError, count }
+}
+
+export const useBooking = () => {
+  const { bookingId } = useParams()
+  const { data: booking, isLoading, isError, error } = useQuery({ queryKey: ['bookingDetail', bookingId], queryFn: () => getBooking(bookingId), retry: false })
+  if (isError) {
+    toast.error(error.message)
+    return null
+  }
+  return { booking, isLoading, isError }
 }

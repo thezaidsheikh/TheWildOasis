@@ -1,29 +1,31 @@
 import styled from 'styled-components'
-import { format } from 'date-fns'
+import { format, isToday } from 'date-fns'
 
-import { box } from 'styles/styles'
-import { formatDistanceFromNow } from 'utils/helpers'
-import { isToday } from 'date-fns/esm'
-import { formatCurrency } from 'utils/helpers'
+import { formatDistanceFromNow } from '../../utils/helpers'
+import { formatCurrency } from '../../utils/helpers'
 import { HiOutlineChatBubbleBottomCenterText, HiOutlineCheckCircle, HiOutlineCurrencyDollar, HiOutlineHomeModern } from 'react-icons/hi2'
-import DataItem from 'ui/DataItem'
-import { Flag } from 'ui/Flag'
+import DataItem from '../../ui/DataItem'
+import { Flag } from '../../ui/Flag'
 
 const StyledBookingDataBox = styled.section`
-  ${box} /* padding: 3.2rem 4rem; */
+  padding: 3.2rem 2.5rem;
   overflow: hidden;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
 `
 
 const Header = styled.header`
-  background-color: var(--color-brand-500);
-  /* padding: 2.4rem 4rem; */
-  padding: 2rem 4rem;
-  color: #e0e7ff;
-  font-size: 1.8rem;
-  font-weight: 500;
+  background-color: var(--color-brand-600);
+  padding: 2.4rem 4rem;
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 2px solid var(--color-brand-700);
 
   svg {
     height: 3.2rem;
@@ -46,16 +48,16 @@ const Header = styled.header`
 `
 
 const Section = styled.section`
-  padding: 3.2rem 4rem 1.2rem;
+  padding: 2.4rem 4rem 1.2rem;
+  border-top: 1px solid var(--color-grey-300);
 `
 
 const Guest = styled.div`
   display: flex;
   align-items: center;
-  gap: 1.2rem;
-  /* font-size: 1.8rem; */
-  margin-bottom: 1.6rem;
-  color: var(--color-grey-500);
+  gap: 1.6rem;
+  margin-bottom: 2rem;
+  color: var(--color-grey-600);
 
   & p:first-of-type {
     font-weight: 500;
@@ -68,8 +70,9 @@ const Price = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 1.6rem 3.2rem;
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius-md);
   margin-top: 2.4rem;
+  background-color: ${(props) => (props.isPaid ? 'var(--color-green-200)' : 'var(--color-yellow-200)')};
 
   background-color: ${(props) => (props.isPaid ? 'var(--color-green-100)' : 'var(--color-yellow-100)')};
   color: ${(props) => (props.isPaid ? 'var(--color-green-700)' : 'var(--color-yellow-700)')};

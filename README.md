@@ -6,8 +6,8 @@ The Wild Oasis is a React application that provides a comprehensive management s
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/yourproject.git
-   cd yourproject
+   git clone https://github.com/thezaidsheikh/TheWildOasis.git
+   cd TheWildOasis
    ```
 2. Install dependencies using pnpm:
    ```bash
@@ -61,4 +61,4 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-For further inquiries, please reach out to [your-email@example.com].
+For further inquiries, please reach out to [zaid.a530@gmail.com].

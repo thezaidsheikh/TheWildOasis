@@ -13,6 +13,7 @@ import Account from './pages/Account'
 import Login from './pages/Login'
 import PageNotFound from './pages/PageNotFound'
 import AppLayout from './ui/AppLayout'
+import Booking from './pages/Booking'
 
 // Create a client
 const queryClient = new QueryClient({
@@ -23,6 +24,16 @@ const queryClient = new QueryClient({
   },
 })
 
+/**
+ * The App component serves as the root component of the application.
+ * It sets up the global context providers, including the QueryClientProvider
+ * for managing server state with React Query and the BrowserRouter for handling
+ * routing. It defines the main application routes within a nested routing structure,
+ * utilizing the AppLayout component for shared layout elements. The component
+ * also integrates global styles via GlobalStyles, and configures the React Query Devtools
+ * for debugging. The Toaster component is used for displaying toast notifications
+ * with customized styling and duration settings.
+ */
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -37,6 +48,7 @@ function App() {
             <Route path="users" element={<Users />} />
             <Route path="settings" element={<Settings />} />
             <Route path="account" element={<Account />} />
+            <Route path="bookings/:bookingId" element={<Booking />} />
           </Route>
 
           <Route path="login" element={<Login />} />
