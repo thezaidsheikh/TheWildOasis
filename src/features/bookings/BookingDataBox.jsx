@@ -6,26 +6,27 @@ import { formatCurrency } from '../../utils/helpers'
 import { HiOutlineChatBubbleBottomCenterText, HiOutlineCheckCircle, HiOutlineCurrencyDollar, HiOutlineHomeModern } from 'react-icons/hi2'
 import DataItem from '../../ui/DataItem'
 import { Flag } from '../../ui/Flag'
+import { box } from '../../styles/styles'
 
 const StyledBookingDataBox = styled.section`
-  padding: 3.2rem 2.5rem;
-  overflow: hidden;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+  padding: 0; /* Adjust padding to fit the new design */
+  ${box}
 `
 
 const Header = styled.header`
   background-color: var(--color-brand-600);
-  padding: 2.4rem 4rem;
+  padding: 2.5rem 4rem; /* Adjust padding for a more compact header */
   color: #ffffff;
-  font-size: 2rem;
+  font-size: 1.8rem; /* Adjust font size */
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 2px solid var(--color-brand-700);
+  border-top-left-radius: var(--border-radius-md); /* Add border radius for the top left corner */
+  border-top-right-radius: var(--border-radius-md); /* Add border radius for the top right corner */
+  border-bottom-left-radius: 0; /* Remove border radius for the bottom left corner */
+  border-bottom-right-radius: 0; /* Remove border radius for the bottom right corner */
 
   svg {
     height: 3.2rem;
@@ -69,12 +70,10 @@ const Price = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.6rem 3.2rem;
+  padding: 1.6rem 2rem; /* Adjust padding for a more compact price section */
   border-radius: var(--border-radius-md);
-  margin-top: 2.4rem;
-  background-color: ${(props) => (props.isPaid ? 'var(--color-green-200)' : 'var(--color-yellow-200)')};
-
-  background-color: ${(props) => (props.isPaid ? 'var(--color-green-100)' : 'var(--color-yellow-100)')};
+  margin-top: 1.6rem; /* Adjust margin for better spacing */
+  background-color: ${(props) => (props.isPaid ? 'var(--color-green-100)' : 'var(--color-yellow-100)')}; /* Use lighter background */
   color: ${(props) => (props.isPaid ? 'var(--color-green-700)' : 'var(--color-yellow-700)')};
 
   & p:last-child {

@@ -1,17 +1,14 @@
 import styled from 'styled-components'
 import { useNavigate } from 'react-router'
-import { HiPencil, HiTrash, HiEye, HiArrowUpOnSquare, HiArrowDownOnSquare } from 'react-icons/hi2'
+import { HiEye, HiArrowDownOnSquare } from 'react-icons/hi2'
 
 import Tag from '../../ui/Tag'
 import Menus from '../../ui/Menus'
-import Modal from '../../ui/Modal'
-import ConfirmDelete from '../../ui/ConfirmDelete'
 import Table from '../../ui/Table'
 
 import { formatCurrency } from '../../utils/helpers'
 import { formatDistanceFromNow } from '../../utils/helpers'
 import { format, isToday } from 'date-fns'
-import { deleteBooking } from '../../services/apiBookings'
 
 // v1
 // const TableRow = styled.div`
@@ -56,11 +53,9 @@ const Amount = styled.div`
 function BookingRow({
   booking: {
     id: bookingId,
-    created_at,
     startDate,
     endDate,
     numNights,
-    numGuests,
     totalPrice,
     status,
     guests: { fullName: guestName, email },
@@ -104,9 +99,11 @@ function BookingRow({
           <Menus.Button onClick={() => navigate(`/bookings/${bookingId}`)} icon={<HiEye />}>
             See details
           </Menus.Button>
-          <Menus.Button onClick={() => navigate(`/bookings/${bookingId}`)} icon={<HiPencil />}>
-            Edit
-          </Menus.Button>
+          {status === 'unconfirmed' && (
+            <Menus.Button onClick={() => navigate(`/checkin/${bookingId}`)} icon={<HiArrowDownOnSquare />}>
+              Check in
+            </Menus.Button>
+          )}
         </Menus.List>
       </Menus.Menu>
 
