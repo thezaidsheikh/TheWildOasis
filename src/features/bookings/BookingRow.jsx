@@ -69,7 +69,6 @@ function BookingRow({
 }) {
   // const { mutate: deleteBooking, isLoading: isDeleting } = useDeleteBooking()
   // const { mutate: checkout, isLoading: isCheckingOut } = useCheckout()
-
   const navigate = useNavigate()
 
   const statusToTagName = {
@@ -99,30 +98,21 @@ function BookingRow({
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
 
+      <Menus.Menu>
+        <Menus.Toggle id={bookingId} />
+        <Menus.List id={bookingId}>
+          <Menus.Button onClick={() => navigate(`/bookings/${bookingId}`)} icon={<HiEye />}>
+            See details
+          </Menus.Button>
+          <Menus.Button onClick={() => navigate(`/bookings/${bookingId}`)} icon={<HiEye />}>
+            See details
+          </Menus.Button>
+        </Menus.List>
+      </Menus.Menu>
+
       {/* VIDEO we could export this into own component... */}
       {/* <Modal>
-        <Menus.Menu>
-          <Menus.Toggle id={bookingId} />
-          <Menus.List id={bookingId}>
-            <Menus.Button onClick={() => navigate(`/bookings/${bookingId}`)} icon={<HiEye />}>
-              See details
-            </Menus.Button>
-
-            {status === 'unconfirmed' && (
-              <Menus.Button onClick={() => navigate(`/checkin/${bookingId}`)} icon={<HiArrowDownOnSquare />}>
-                Check in
-              </Menus.Button>
-            )}
-
-            {status === 'checked-in' && <Menus.Button>Check out</Menus.Button>}
-
-            <Menus.Button icon={<HiPencil />}>Edit booking</Menus.Button>
-
-            <Modal.Toggle opens="delete">
-              <Menus.Button icon={<HiTrash />}>Delete booking</Menus.Button>
-            </Modal.Toggle>
-          </Menus.List>
-        </Menus.Menu>
+        
 
         <Modal.Window name="delete">
           <ConfirmDelete

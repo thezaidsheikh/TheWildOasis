@@ -79,7 +79,6 @@ function Menus({ children }) {
 
 function Toggle({ id }) {
   const { openId, open, close, setPosition } = useContext(MenuContext)
-
   function handleClick(e) {
     const rect = e.target.closest('button').getBoundingClientRect()
     setPosition({ x: window.innerWidth - rect.width - rect.x, y: rect.y + rect.height + 8 })
@@ -108,7 +107,6 @@ function List({ children, id }) {
 
 function Button({ children, onClick, icon }) {
   const { close } = useContext(MenuContext)
-
   function handleClick() {
     onClick?.()
     close()
