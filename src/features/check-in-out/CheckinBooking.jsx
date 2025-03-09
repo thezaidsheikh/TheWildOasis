@@ -9,7 +9,6 @@ import BookingDataBox from '../bookings/BookingDataBox'
 
 import { useBooking } from '../bookings/booking.hook'
 import { useMoveBack } from '../../hooks/useMoveBack'
-// import { useCheckin } from './useCheckin'
 
 import styled from 'styled-components'
 import { box } from '../../styles/styles'

@@ -13,7 +13,7 @@ import { useBooking } from './booking.hook'
 import Empty from '../../ui/Empty'
 import Spinner from '../../ui/Spinner'
 import { useMoveBack } from '../../hooks/useMoveBack'
-// import { useCheckout } from '../check-in-out/useCheckout'
+import { useCheckout } from '../check-in-out/checkin.hook'
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -23,8 +23,8 @@ const HeadingGroup = styled.div`
 
 function BookingDetail() {
   const { booking, isLoading } = useBooking()
+  const { checkout, isCheckingOut } = useCheckout()
   // const { mutate: deleteBooking, isLoading: isDeleting } = useDeleteBooking()
-  // const { mutate: checkout, isLoading: isCheckingOut } = useCheckout()
 
   const moveBack = useMoveBack()
   const navigate = useNavigate()
@@ -55,6 +55,11 @@ function BookingDetail() {
 
       <ButtonGroup>
         {status === 'unconfirmed' && <Button onClick={() => navigate(`/checkin/${bookingId}`)}>Check in</Button>}
+        {status === 'checked-in' && (
+          <Button onClick={() => checkout(bookingId)} disabled={isCheckingOut}>
+            Check out
+          </Button>
+        )}
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>
