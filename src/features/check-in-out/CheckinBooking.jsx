@@ -16,6 +16,7 @@ import { box } from '../../styles/styles'
 import Checkbox from '../../ui/Checkbox'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { useCheckin } from './checkin.hook'
 
 const Box = styled.div`
   ${box}
@@ -27,16 +28,21 @@ function CheckinBooking() {
   const [confirmPaid, setConfirmPaid] = useState(false)
   useEffect(() => setConfirmPaid(booking?.isPaid), [booking])
   const moveBack = useMoveBack()
+  const { checkin, isCheckingIn } = useCheckin()
 
   if (isLoading) return <Spinner />
 
   const { id: bookingId, guests } = booking
 
-  function handleCheckin() {}
+  function handleCheckin() {
+    if (!confirmPaid) return
+    checkin(bookingId)
+  }
 
   return (
     <>
       <Row type="horizontal">
+        <Heading type="h1">Check in booking #{bookingId}</Heading>
         <Heading type="h1">Check in booking #{bookingId}</Heading>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
@@ -50,7 +56,7 @@ function CheckinBooking() {
       </Box>
 
       <ButtonGroup>
-        <Button onClick={handleCheckin} disabled={!confirmPaid}>
+        <Button onClick={handleCheckin} disabled={!confirmPaid || isCheckingIn}>
           Check in booking #{bookingId}
         </Button>
         <Button variation="secondary" onClick={moveBack}>
