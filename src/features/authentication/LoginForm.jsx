@@ -14,7 +14,10 @@ function LoginForm() {
   function handleSubmit(event) {
     if (!email || !password) return
     event.preventDefault()
-    login({ email, password })
+    login({ email, password },{onSettled:()=>{
+      setEmail('')
+      setPassword('')
+    }})
   }
 
   return (
