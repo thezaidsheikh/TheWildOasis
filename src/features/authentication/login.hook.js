@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { getCurrentUser, loginAPI } from '../../services/apiAuth'
+import { getCurrentUserAPI, loginAPI, logoutAPI, signupAPI } from '../../services/apiAuth'
 import { useNavigate } from 'react-router'
 import toast from 'react-hot-toast'
 
@@ -13,7 +13,7 @@ export const useLogin = () => {
   } = useMutation({
     mutationFn: ({ email, password }) => loginAPI({ email, password }),
     onSuccess: (data) => {
-      queryClient.setQueriesData(['user'], data)
+      queryClient.setQueryData(['user'], data.user)
       navigate('/dashboard')
     },
     onError: (error) => {
@@ -25,11 +25,49 @@ export const useLogin = () => {
 }
 
 export const useUser = () => {
-  const { data: user, isLoading: isUserLoading, isError, error } = useQuery({ queryKey: ['user'], queryFn: getCurrentUser })
+  const { data: user, isLoading: isUserLoading, isError, error } = useQuery({ queryKey: ['user'], queryFn: getCurrentUserAPI })
   if (isError) {
     toast.error(error.message)
     return { user, isUserLoading, isError, isAuthenticated: false }
   }
-  const role = user?.user?.role
+  const role = user?.role
   return { user, isUserLoading, isError, isAuthenticated: role === 'authenticated' }
+}
+
+export const useLogout = () => {
+  const queryClient = useQueryClient()
+  const navigate = useNavigate()
+  const {
+    mutate: logout,
+    isLoading,
+    error,
+  } = useMutation({
+    mutationFn: logoutAPI,
+    onSuccess: () => {
+      queryClient.removeQueries()
+      navigate('/login')
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    },
+  })
+
+  return { logout, isLoading, error }
+}
+
+export const useSignup = () => {
+  const {
+    mutate: signup,
+    isLoading,
+    error,
+  } = useMutation({
+    mutationFn: signupAPI,
+    onSuccess: () => {
+      toast.success('Account created succesfully')
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    },
+  })
+  return { signup, isLoading, error }
 }
