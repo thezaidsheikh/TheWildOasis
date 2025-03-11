@@ -1,3 +1,4 @@
+import { uploadImage } from './apiCabins'
 import supabase from './supabase'
 
 export const loginAPI = async ({ email, password }) => {
@@ -29,7 +30,17 @@ export const logoutAPI = async () => {
 }
 
 export const signupAPI = async ({ email, password, fullName }) => {
-  const { data, error } = await supabase.auth.signUp({ email, password, options: { fullName, avatar: '' } })
+  const { data, error } = await supabase.auth.signUp({ email, password, options: { data: { fullName, avatar: '' } } })
   if (error) throw new Error(error.message)
   return data
+}
+
+export const updateUserAPI = async (payload) => {
+  if (payload.password) payload = { password: payload.password }
+  else payload.data = { fullName: payload.fullName }
+
+  if (payload.image || payload.avatar) payload.data.avatar = await uploadImage(payload.image || payload.avatar, 'user')
+  const { data: user, error } = await supabase.auth.updateUser(payload)
+  if (error) throw new Error(error.message)
+  return user.user
 }

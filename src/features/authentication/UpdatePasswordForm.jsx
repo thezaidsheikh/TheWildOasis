@@ -1,15 +1,15 @@
 import { useForm } from 'react-hook-form'
-import Button from 'ui/Button'
-import Form from 'ui/Form'
-import FormRow from 'ui/FormRow'
-import Input from 'ui/Input'
-import { useUpdateUser } from './useUpdateUser'
+import Button from '../../ui/Button'
+import Form from '../../ui/Form'
+import FormRow from '../../ui/FormRow'
+import Input from '../../ui/Input'
+import { useUpdateUser } from './login.hook'
 
 function UpdatePasswordForm() {
   const { register, handleSubmit, formState, getValues, reset } = useForm()
   const { errors } = formState
 
-  const { mutate: updateUser, isLoading: isUpdating } = useUpdateUser()
+  const { updateUser, isUpdating } = useUpdateUser()
 
   function onSubmit({ password }) {
     updateUser({ password }, { onSuccess: () => reset() })

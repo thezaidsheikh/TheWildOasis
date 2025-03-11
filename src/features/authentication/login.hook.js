@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { getCurrentUserAPI, loginAPI, logoutAPI, signupAPI } from '../../services/apiAuth'
+import { getCurrentUserAPI, loginAPI, logoutAPI, signupAPI, updateUserAPI } from '../../services/apiAuth'
 import { useNavigate } from 'react-router'
 import toast from 'react-hot-toast'
 
@@ -61,7 +61,7 @@ export const useSignup = () => {
     isLoading,
     error,
   } = useMutation({
-    mutationFn: signupAPI,
+    mutationFn: ({ fullName, email, password }) => signupAPI({ fullName, email, password }),
     onSuccess: () => {
       toast.success('Account created succesfully')
     },
@@ -70,4 +70,23 @@ export const useSignup = () => {
     },
   })
   return { signup, isLoading, error }
+}
+
+export const useUpdateUser = () => {
+  const queryClient = useQueryClient()
+  const {
+    mutate: updateUser,
+    isLoading: isUpdating,
+    error,
+  } = useMutation({
+    mutationFn: updateUserAPI,
+    onSuccess: (data) => {
+      toast.success('Your account updated successfully')
+      queryClient.setQueryData(['user'], data)
+    },
+    onError: (error) => {
+      toast.error(error.message)
+    },
+  })
+  return { updateUser, isUpdating, error }
 }
