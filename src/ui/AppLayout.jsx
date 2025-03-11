@@ -18,7 +18,6 @@ const Main = styled.main`
 
 const Container = styled.div`
   display: 'flex';
-  max-width: 120rem;
   margin: 0 auto;
   flex-direction: column;
   gap: 3.2rem;

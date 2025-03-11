@@ -2,10 +2,10 @@ import Button from '../../ui/Button'
 import { useCheckout } from './checkin.hook'
 
 function CheckoutButton({ bookingId }) {
-  const { isLoading, mutate: checkout } = useCheckout()
+  const { isCheckingOut, checkout } = useCheckout()
 
   return (
-    <Button variation="primary" size="small" onClick={() => checkout(bookingId)} disabled={isLoading}>
+    <Button variation="primary" size="small" onClick={() => checkout(bookingId)} disabled={isCheckingOut}>
       Check out
     </Button>
   )

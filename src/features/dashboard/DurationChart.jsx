@@ -142,13 +142,13 @@ function DurationChart({ confirmedStays }) {
       <Heading type="h2">Stay duration summary</Heading>
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>
-          <Pie data={data} nameKey="duration" dataKey="value" cx="30%" cy="30%" innerRadius={90} outerRadius={110} fill="#4f46e5" paddingAngle={5} startAngle={180} endAngle={-180}>
+          <Pie data={data} nameKey="duration" dataKey="value" cx="30%" cy="35%" innerRadius={70} outerRadius={90} fill="#4f46e5" paddingAngle={5} startAngle={90} endAngle={-270}>
             {data.map((entry) => (
               <Cell key={entry.duration} fill={entry.color} stroke={entry.color} />
             ))}
           </Pie>
           <Tooltip />
-          <Legend verticalAlign="middle" align="right" width="25%" layout="vertical" iconSize={10} iconType="circle" />
+          <Legend verticalAlign="left" align="right" width="30%" layout="vertical" iconSize={15} iconType="circle" />
         </PieChart>
       </ResponsiveContainer>
     </ChartBox>
