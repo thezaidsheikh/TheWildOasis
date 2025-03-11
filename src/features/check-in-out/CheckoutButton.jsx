@@ -1,5 +1,5 @@
-import Button from 'ui/Button'
-import { useCheckout } from './useCheckout'
+import Button from '../../ui/Button'
+import { useCheckout } from './checkin.hook'
 
 function CheckoutButton({ bookingId }) {
   const { isLoading, mutate: checkout } = useCheckout()

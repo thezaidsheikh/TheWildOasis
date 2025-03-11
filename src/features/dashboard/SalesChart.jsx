@@ -1,8 +1,8 @@
-import { useDarkMode } from 'context/DarkModeContext'
+// import { useDarkMode } from 'context/DarkModeContext'
 import { eachDayOfInterval, format, isSameDay, subDays } from 'date-fns'
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import styled from 'styled-components'
-import Heading from 'ui/Heading'
+import Heading from '../../ui/Heading'
 import DashboardBox from './DashboardBox'
 
 const StyledSalesChart = styled(DashboardBox)`
@@ -17,7 +17,7 @@ const StyledSalesChart = styled(DashboardBox)`
 
 function SalesChart({ bookings, numDays }) {
   // In the chart we need to set colors, but we can't do it based on CSS variables, because we have no access to them here. So let's set them manually
-  const { isDarkMode } = useDarkMode()
+  const { isDarkMode } = { isDarkMode: false }
 
   const allDates = eachDayOfInterval({
     start: subDays(new Date(), numDays - 1),
