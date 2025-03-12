@@ -46,7 +46,7 @@ function BookingDetail() {
       <Row type="horizontal">
         <HeadingGroup>
           <Heading type="h1">Booking # {bookingId}</Heading>
-          <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
+          <Tag type={statusToTagName[status]}>{status.replaceAll('-', ' ')}</Tag>
         </HeadingGroup>
         <ButtonText onClick={() => navigate(-1)}>&larr; Back</ButtonText>
       </Row>
