@@ -1,6 +1,6 @@
-# The Wild Oasis 🌴
+# The Lux Healer 🌴
 
-The Wild Oasis is a React application that provides a comprehensive management system for bookings and cabins. It allows users to manage their bookings, view available cabins, and access a dashboard for statistics.
+The Lux Healer is a React application that provides a comprehensive management system for bookings and cabins. It allows users to manage their bookings, view available cabins, and access a dashboard for statistics.
 
 ## Installation Instructions
 
