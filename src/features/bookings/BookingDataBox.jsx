@@ -73,8 +73,8 @@ const Price = styled.div`
   padding: 1.6rem 2rem; /* Adjust padding for a more compact price section */
   border-radius: var(--border-radius-md);
   margin-top: 1.6rem; /* Adjust margin for better spacing */
-  background-color: ${(props) => (props.isPaid ? 'var(--color-green-100)' : 'var(--color-yellow-100)')}; /* Use lighter background */
-  color: ${(props) => (props.isPaid ? 'var(--color-green-700)' : 'var(--color-yellow-700)')};
+  background-color: ${(props) => (props.ispaid ? 'var(--color-green-100)' : 'var(--color-yellow-100)')}; /* Use lighter background */
+  color: ${(props) => (props.ispaid ? 'var(--color-green-700)' : 'var(--color-yellow-700)')};
 
   & p:last-child {
     text-transform: uppercase;
@@ -150,7 +150,7 @@ function BookingDataBox({ booking }) {
           {hasBreakfast ? 'Yes' : 'No'}
         </DataItem>
 
-        <Price isPaid={isPaid}>
+        <Price ispaid={isPaid ? 'true' : ''}>
           <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
             {formatCurrency(totalPrice)}
 

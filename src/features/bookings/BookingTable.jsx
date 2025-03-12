@@ -3,9 +3,14 @@ import Pagination from '../../ui/Pagination'
 import Table from '../../ui/Table'
 import { useBookings } from './booking.hook'
 import BookingRow from './BookingRow'
+import Spinner from '../../ui/Spinner'
+import Empty from '../../ui/Empty'
 
 const BookingTable = () => {
-  const { bookings, count } = useBookings()
+  const { bookings, count, isLoading } = useBookings()
+
+  if (!bookings?.length) return <Empty resource="bookings" />
+  if (isLoading) return <Spinner />
 
   return (
     <Menus>

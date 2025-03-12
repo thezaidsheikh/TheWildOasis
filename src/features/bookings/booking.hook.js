@@ -19,12 +19,9 @@ export const useBookings = () => {
 
   // Pagination
   const page = !searchParams.get('page') ? 1 : Number(searchParams.get('page'))
-  const { data } = useQuery({ queryKey: ['bookings', filter, sortBy, page], queryFn: () => getBookings({ filter, sortBy, page }) })
+  const { data, isLoading, isError, error } = useQuery({ queryKey: ['bookings', filter, sortBy, page], queryFn: () => getBookings({ filter, sortBy, page }) })
   const bookings = data?.data
-  const isLoading = !data?.isLoading
-  const isError = !!data?.error
   const count = data?.count
-  const error = data?.error
 
   // Prefetching next page
   const pageCount = Math.ceil(count / PAGE_SIZE)
@@ -51,7 +48,6 @@ export const useBooking = () => {
   const { data: booking, isLoading, isError, error } = useQuery({ queryKey: ['bookingDetail', bookingId], queryFn: () => getBooking(bookingId), retry: false })
   if (isError) {
     toast.error(error.message)
-    return null
   }
   return { booking, isLoading, isError }
 }

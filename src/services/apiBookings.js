@@ -71,12 +71,8 @@ export async function getStaysTodayActivity() {
   const { data, error } = await supabase
     .from('bookings')
     .select('*, guests(fullName, nationality, countryFlag)')
-    .or(`and(status.eq.unconfirmed,startDate.gte.${getToday()}),and(status.eq.checked-in,endDate.lte.${getToday()})`)
+    .or(`and(status.eq.unconfirmed,startDate.gte.${getToday()},startDate.lte.${getToday({ end: true })}),and(status.eq.checked-in,endDate.gte.${getToday()},endDate.lte.${getToday({ end: true })})`)
     .order('created_at')
-
-  // Equivalent to this. But by querying this, we only download the data we actually need, otherwise we would need ALL bookings ever created
-  // (stay.status === 'unconfirmed' && isToday(new Date(stay.startDate))) ||
-  // (stay.status === 'checked-in' && isToday(new Date(stay.endDate)))
 
   if (error) {
     console.error(error)
