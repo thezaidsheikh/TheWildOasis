@@ -39,6 +39,9 @@ pnpm run dev
 - **React**: A JavaScript library for building user interfaces.
 - **Vite**: A build tool that provides a fast development environment.
 - **Supabase**: An open-source Firebase alternative for backend services.
+- **date-fns**: For date manipulation.
+- **react-icons**: For using icons in React.
+- **recharts**: For creating charts and graphs.
 
 ## Important Libraries
 
@@ -50,6 +53,7 @@ This project utilizes several key React libraries:
 - **styled-components**: For styling components.
 - **@supabase/supabase-js**: For interacting with the Supabase backend.
 - **@tanstack/react-query**: For data fetching and caching.
+- **eslint**: For linting JavaScript code.
 
 ## Contributing
 
